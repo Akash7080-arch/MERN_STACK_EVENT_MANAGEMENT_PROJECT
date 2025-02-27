@@ -12,7 +12,7 @@ const Footer = () => {
 
     // Simulate a signup request (you can replace this with an API call)
     setTimeout(() => {
-      setMessage("✅ Signup successful! Thank you for subscribing.");
+      setMessage("✅ Signup successful! Thank you for signup.");
       setEmail(""); // Clear input after signup
     }, 1000);
   };
