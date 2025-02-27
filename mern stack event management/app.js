@@ -8,10 +8,12 @@ const app = express();
 dotenv.config({ path: "./.env" });
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "https://mern-stack-event-management-project.vercel.app",
+    origin: [process.env.FRONTEND_URL, "http://localhost:5173", "https://mern-stack-event-management-project.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
