@@ -6,10 +6,7 @@ const Footer = () => {
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState("green");
 
-  const isValidEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleSignup = async () => {
     if (!isValidEmail(email)) {
@@ -20,7 +17,7 @@ const Footer = () => {
 
     try {
       const response = await axios.post(
-        "https://mern-stack-event.onrender.com/api/v2/newsletter", // ✅ Updated to match backend route
+        "https://mern-stack-event.onrender.com/api/v2/newsletter", // ✅ Correct endpoint
         { email },
         { withCredentials: true }
       );
@@ -34,7 +31,7 @@ const Footer = () => {
         setMessageColor("red");
       }
     } catch (error) {
-      console.error("Email signup error:", error.response?.data || error.message);
+      console.error("Email signup error:", error);
       setMessage("❌ Error sending email. Please try again later.");
       setMessageColor("red");
     }
@@ -60,7 +57,6 @@ const Footer = () => {
                 backgroundColor: "black",
                 border: "1px solid white",
                 padding: "8px",
-                borderRadius: "4px",
               }}
             />
             <button
@@ -71,8 +67,6 @@ const Footer = () => {
                 border: "none",
                 padding: "8px 12px",
                 cursor: "pointer",
-                marginLeft: "8px",
-                borderRadius: "4px",
               }}
             >
               Signup
@@ -80,9 +74,7 @@ const Footer = () => {
           </div>
           <p>Sign up with your email address to receive news and updates!</p>
           {message && (
-            <p style={{ color: messageColor, fontWeight: "bold", marginTop: "10px" }}>
-              {message}
-            </p>
+            <p style={{ color: messageColor, fontWeight: "bold" }}>{message}</p>
           )}
         </div>
       </div>
