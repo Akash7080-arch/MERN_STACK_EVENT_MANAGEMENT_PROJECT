@@ -20,7 +20,7 @@ const Footer = () => {
 
     try {
       const response = await axios.post(
-        "https://mern-stack-event.onrender.com", // 🔁 Replace with your Render backend URL
+        "https://mern-stack-event.onrender.com/api/v2/newsletter", // ✅ Updated to match backend route
         { email },
         { withCredentials: true }
       );
@@ -34,7 +34,7 @@ const Footer = () => {
         setMessageColor("red");
       }
     } catch (error) {
-      console.error("Email signup error:", error);
+      console.error("Email signup error:", error.response?.data || error.message);
       setMessage("❌ Error sending email. Please try again later.");
       setMessageColor("red");
     }
@@ -60,6 +60,7 @@ const Footer = () => {
                 backgroundColor: "black",
                 border: "1px solid white",
                 padding: "8px",
+                borderRadius: "4px",
               }}
             />
             <button
@@ -70,6 +71,8 @@ const Footer = () => {
                 border: "none",
                 padding: "8px 12px",
                 cursor: "pointer",
+                marginLeft: "8px",
+                borderRadius: "4px",
               }}
             >
               Signup
@@ -77,7 +80,9 @@ const Footer = () => {
           </div>
           <p>Sign up with your email address to receive news and updates!</p>
           {message && (
-            <p style={{ color: messageColor, fontWeight: "bold" }}>{message}</p>
+            <p style={{ color: messageColor, fontWeight: "bold", marginTop: "10px" }}>
+              {message}
+            </p>
           )}
         </div>
       </div>
