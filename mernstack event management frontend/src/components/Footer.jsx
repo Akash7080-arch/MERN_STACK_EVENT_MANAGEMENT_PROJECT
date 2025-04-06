@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -6,24 +7,37 @@ const Footer = () => {
   const [messageColor, setMessageColor] = useState("green");
 
   const isValidEmail = (email) => {
-    // Simple regex for email validation
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (!isValidEmail(email)) {
       setMessage("❌ Please enter a valid email address.");
       setMessageColor("red");
       return;
     }
 
-    // Simulate a signup request (replace with real API call if needed)
-    setTimeout(() => {
-      setMessage("✅ Signup successful! Thank you for signup.");
-      setMessageColor("green");
-      setEmail(""); // Clear input after signup
-    }, 1000);
+    try {
+      const response = await axios.post(
+        "https://mern-stack-event.onrender.com", // 🔁 Replace with your Render backend URL
+        { email },
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        setMessage("✅ Signup successful! Please check your email.");
+        setMessageColor("green");
+        setEmail("");
+      } else {
+        setMessage("❌ Something went wrong. Try again.");
+        setMessageColor("red");
+      }
+    } catch (error) {
+      console.error("Email signup error:", error);
+      setMessage("❌ Error sending email. Please try again later.");
+      setMessageColor("red");
+    }
   };
 
   return (
@@ -34,7 +48,7 @@ const Footer = () => {
           <p>Events and Weddings</p>
         </div>
         <div className="tag">
-          <label>News Letter</label>
+          <label>Newsletter</label>
           <div>
             <input
               type="text"
