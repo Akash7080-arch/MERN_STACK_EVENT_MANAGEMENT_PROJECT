@@ -2,6 +2,7 @@ import express from "express";
 import { dbconnection } from "./database/dbconnection.js";
 import dotenv from "dotenv";
 import messageRouter from "./router/messageRouter.js";
+import emailRouter from "./router/emailRouter.js"; // ✅ Import your email router
 import cors from "cors";
 
 const app = express();
@@ -14,7 +15,6 @@ app.use(cors({
     credentials: true,
 }));
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v2/message", messageRouter);
+app.use("/api/v2/newsletter", emailRouter); // ✅ Mount emailRouter on /api/v2/newsletter
 
 dbconnection();
 
