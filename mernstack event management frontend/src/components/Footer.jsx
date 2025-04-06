@@ -3,16 +3,25 @@ import React, { useState } from "react";
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [messageColor, setMessageColor] = useState("green");
+
+  const isValidEmail = (email) => {
+    // Simple regex for email validation
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   const handleSignup = () => {
-    if (email.trim() === "") {
-      setMessage("Please enter a valid email address.");
+    if (!isValidEmail(email)) {
+      setMessage("❌ Please enter a valid email address.");
+      setMessageColor("red");
       return;
     }
 
-    // Simulate a signup request (you can replace this with an API call)
+    // Simulate a signup request (replace with real API call if needed)
     setTimeout(() => {
       setMessage("✅ Signup successful! Thank you for signup.");
+      setMessageColor("green");
       setEmail(""); // Clear input after signup
     }, 1000);
   };
@@ -53,7 +62,9 @@ const Footer = () => {
             </button>
           </div>
           <p>Sign up with your email address to receive news and updates!</p>
-          {message && <p style={{ color: "green", fontWeight: "bold" }}>{message}</p>}
+          {message && (
+            <p style={{ color: messageColor, fontWeight: "bold" }}>{message}</p>
+          )}
         </div>
       </div>
     </footer>
