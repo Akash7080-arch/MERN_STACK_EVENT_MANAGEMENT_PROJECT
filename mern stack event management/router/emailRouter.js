@@ -33,4 +33,9 @@ router.post("/", async (req, res) => {
   }
 });
 
+// ✅ Test route
+router.get("/test", (req, res) => {
+  res.status(200).json({ message: "Newsletter route is working fine!" });
+});
+
 export default router;
