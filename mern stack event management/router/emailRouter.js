@@ -5,6 +5,11 @@ import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 
+// ✅ Add test route
+router.get("/test", (req, res) => {
+  res.send("📬 Newsletter route is working!");
+});
+
 router.post("/", async (req, res) => {
   const { email } = req.body;
 
@@ -31,11 +36,6 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to send email.", error });
   }
-});
-
-// ✅ Test route
-router.get("/test", (req, res) => {
-  res.status(200).json({ message: "Newsletter route is working fine!" });
 });
 
 export default router;
