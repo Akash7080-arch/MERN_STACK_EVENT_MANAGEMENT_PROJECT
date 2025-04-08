@@ -28,8 +28,9 @@ router.post("/", async (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Welcome to KING's Newsletter 🎉",
-      text: "Thank you for sighning to KING's Events and Weddings newsletter. Stay tuned for updates!",
+      text: "Thank you for signing up for KING's Events and Weddings newsletter. Stay tuned for updates!",
     };
+    
 
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Email sent successfully." });
